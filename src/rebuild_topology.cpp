@@ -30,8 +30,7 @@ struct TopoData {
 };
 
 /// For using vertices as keys in an associative structure
-struct vertex_uv_key_order : public
-    std::binary_function<VertexUV, VertexUV, bool> {
+struct vertex_uv_key_order {
     static int compare(const VertexUV &v1, const VertexUV &v2) {
         if (v1.p.x < v2.p.x) return -1;
         else if (v1.p.x > v2.p.x) return 1;
@@ -50,8 +49,7 @@ struct vertex_uv_key_order : public
         return compare(v1, v2) < 0;
     }
 };
-struct vertex_uv_ind_key_order : public
-    std::binary_function<VertexUVInd, VertexUVInd, bool> {
+struct vertex_uv_ind_key_order {
     static int compare(const VertexUVInd &v1, const VertexUVInd &v2) {
         if (v1.p.x < v2.p.x) return -1;
         else if (v1.p.x > v2.p.x) return 1;

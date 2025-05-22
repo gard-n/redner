@@ -37,6 +37,15 @@
 #define msvc_clzll(x) [](uint64_t mask){ unsigned long index; _BitScanReverse64(&index, mask); return sizeof(uint64_t) * 8U - (index + 1U); }(x)
 #endif
 
+// Check for Microsoft compiler
+#if defined(_MSC_VER)
+    #if _MSC_VER >= 1800
+        #define HAS_STD_LOG2
+    #endif
+#else
+    #define HAS_STD_LOG2 // Assume other modern compilers support std::log2
+#endif
+
 #include <cstdint>
 #include <atomic>
 
@@ -109,9 +118,11 @@ inline void swap_(T &a, T &b) {
     b = tmp;
 }
 
+#ifndef HAS_STD_LOG2
 inline double log2(double x) {
     return log(x) / log(Real(2));
 }
+#endif
 
 template <typename T>
 DEVICE
